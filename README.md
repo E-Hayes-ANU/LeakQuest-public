@@ -63,6 +63,8 @@ Choose which cable collections to search:
 
 LeakQuest shows the result count and a preview of the first 10 cables. Confirm to fetch the full text of every cable.
 
+As noted in the filter section, body-text exclusions are done _after_ fetching. The same is true for date exclusions, so at this stage you may see cables in the preview that you are explicitly trying to filter out. This is normal.
+
 ### 6. Combine Searches (Optional)
 
 After fetching, you can run additional searches and merge results into a single export. Duplicate cables are automatically removed.
@@ -82,8 +84,6 @@ Choose a filename and LeakQuest writes a formatted Excel file with two sheets:
 - Summary: total cables, date range, and search keywords
 - Table 1: distribution of cables by country of origin (sorted by count)
 - Table 2: distribution of cables by year (sorted chronologically)
-
-Country names are historically accurate — a 1980 cable from Moscow is attributed to the Soviet Union, not Russia. Embassy post codes are mapped to countries using a built-in lookup table of 250+ diplomatic posts, supplemented by metadata extracted from cable pages at fetch time.
 
 ## Examples
 
