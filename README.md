@@ -7,28 +7,14 @@ Some additional notes;
 - Secondly, LeakQuest is quite slow. WikiLeaks does not have an API, so it works on scraping. In order to not bombard the WikiLeaks servers, it is designed to scrape relatively slowly. Users can speed this up if they so wish. 
 - Thirdly, LeakQuest has primarily been tested on the Cablegate collection, rather than the much larger alternative collections in PlusD. While it _should_ work just as well with the other collections, there may be errors. Please let me know if these arise.
 
-## Requirements
+## Download
 
-- **Python 3.8+**
-- **curl** (ships with Windows 10+, macOS, and most Linux distros)
+Go to [Releases](https://github.com/E-Hayes-ANU/LeakQuest/releases) and download the version for your platform:
 
-## Install
-
-```
-pip install requests beautifulsoup4 openpyxl rich
-```
-
-Or from the requirements file:
-
-```
-pip install -r requirements.txt
-```
+- **Windows:** Download `LeakQuest.exe` and run it directly — no installation needed.
+- **Mac:** Download the zip, extract it, and double-click `LeakQuest.command`. On first launch it will set up a Python virtual environment and install dependencies automatically. See [Mac notes](#mac-notes) below.
 
 ## Usage
-
-```
-python leakquest.py
-```
 
 LeakQuest walks you through an interactive prompt:
 
@@ -131,31 +117,25 @@ If LeakQuest is interrupted while fetching cables (network error, closed window,
 
 **Excel text looks wrong** - Cable text is automatically reflowed to remove the original hard line wraps (~65 character width) while preserving paragraph breaks.
 
-## Running on Mac
+## Mac Notes
 
-A Mac bundle is included in `dist/LeakQuest-Mac/`. It contains the Python source files and a launcher script that automatically sets up a virtual environment.
+**Requirements:** Python 3.8+ (install via `xcode-select --install`, [Homebrew](https://brew.sh), or [python.org](https://www.python.org/downloads/)) and curl (ships with macOS).
 
-### Setup
+**Setup:** Extract the zip, open Terminal, and make the launcher executable:
+```
+chmod +x LeakQuest-Mac/LeakQuest.command
+```
+Then double-click `LeakQuest.command` in Finder, or run it from Terminal. On first launch, it creates a virtual environment and installs dependencies automatically.
 
-1. Extract or copy the `LeakQuest-Mac` folder to your desired location.
-2. Open Terminal and make the launcher executable:
-   ```
-   chmod +x LeakQuest-Mac/LeakQuest.command
-   ```
-3. Double-click `LeakQuest.command` in Finder, or run it from Terminal:
-   ```
-   ./LeakQuest-Mac/LeakQuest.command
-   ```
+**Gatekeeper:** macOS may block the script on first run because it is unsigned. If you see a security warning, right-click (or Control-click) the file and choose **Open**, then click **Open** again in the dialog. You only need to do this once.
 
-### First Run
+## Running from Source
 
-On first launch, the script will create a `.venv` virtual environment inside the folder and install dependencies automatically. This only happens once.
+If you prefer to run from source instead of using the pre-built downloads:
 
-### Gatekeeper
+```
+pip install requests beautifulsoup4 openpyxl rich
+python leakquest.py
+```
 
-macOS may block the script on first run because it is unsigned. If you see a security warning, right-click (or Control-click) the file and choose **Open**, then click **Open** again in the dialog. You only need to do this once.
-
-### Requirements
-
-- **Python 3.8+** (install via `xcode-select --install`, [Homebrew](https://brew.sh), or [python.org](https://www.python.org/downloads/))
-- **curl** (ships with macOS)
+Requires Python 3.8+ and curl.
