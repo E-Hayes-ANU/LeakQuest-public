@@ -1,8 +1,8 @@
 # LeakQuest
 
-Search WikiLeaks Cablegate cables by keyword and export results to Excel.
+A vibe-coded tool for searching WikiLeaks PlusD. LeakQuest design searches uses keyword search to identify relevant cables, fetches their full text, and then exports everything to a formatted Excel sheet. This Excel sheet also includes summary statistics, so users can understand the corpus they have generated from the keyword searches. 
 
-LeakQuest searches the [WikiLeaks PlusD](https://wikileaks.org/plusd/) database of 251,287 US diplomatic cables (1966-2010), fetches full cable text, and exports everything to a formatted `.xlsx` spreadsheet.
+Some additional notes; LeakQuest is a poor way to explore the broad WikiLeaks PlusD corpus. Users that wish to make use of LeakQuest should first familiarise themselves with what's available in [PlusD](https://wikileaks.org/plusd/) and then use LeakQuest to conduct keyword searches for later analysis. Secondly, LeakQuest is quite slow. WikiLeaks does not have an API, so it works on scraping. In order to not bombard the WikiLeaks servers, it is designed to scrape relatively slowly. Users can speed this up if they so wish. Thirdly, LeakQuest has primarily been tested on the Cablegate collection, rather than the much larger alternative collections in PlusD. While it _should_ work just as well with the other collections, there may be errors. Please let me know if these arise.
 
 ## Requirements
 
