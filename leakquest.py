@@ -18,6 +18,9 @@ from rich.table import Table
 
 from scraper import search_cables, fetch_all_cables
 from exporter import export_to_excel
+from updater import check_for_update, download_update, apply_windows_update
+
+__version__ = "2.2"
 
 console = Console()
 
@@ -25,8 +28,9 @@ console = Console()
 def print_banner():
     console.print(Panel(
         "[bold cyan]LeakQuest[/bold cyan]\n"
-        "[dim]WikiLeaks Cablegate Search & Extract Tool[/dim]\n"
-        "[dim]Search 251,287 US diplomatic cables (1966-2010)[/dim]",
+        f"[dim]v{__version__}[/dim]\n"
+        "[dim]WikiLeaks PlusD Search & Extract Tool[/dim]\n"
+        "[dim]Search 2+ million US diplomatic records (1966-2010)[/dim]",
         border_style="cyan",
     ))
 
@@ -353,8 +357,43 @@ def run_session():
     ))
 
 
+def _check_and_apply_update():
+    """Check for updates and offer to download. Returns True if app should exit."""
+    import sys
+
+    update = check_for_update(__version__)
+    if not update:
+        return False
+
+    new_version, download_url, asset_name = update
+    console.print(
+        f"\n[bold yellow]A new version is available: v{new_version}[/bold yellow] "
+        f"[dim](current: v{__version__})[/dim]"
+    )
+
+    if not Confirm.ask("[cyan]Download update?[/cyan]", default=True):
+        return False
+
+    dest_path = download_update(download_url, asset_name, console)
+    if not dest_path:
+        return False
+
+    if sys.platform == "win32":
+        apply_windows_update(dest_path, console)
+        return True  # signal main() to exit
+    else:
+        console.print(
+            f"\n[bold green]Update downloaded to:[/bold green] {dest_path}\n"
+            "[dim]Replace the current files to complete the update.[/dim]"
+        )
+        return False
+
+
 def main():
     print_banner()
+
+    if _check_and_apply_update():
+        return
 
     while True:
         try:
